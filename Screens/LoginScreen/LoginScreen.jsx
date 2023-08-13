@@ -1,37 +1,52 @@
-import { AntDesign } from '@expo/vector-icons'; 
 import bgImage from '../../assets/bg.png';
-import {ImageBackground, Text,View, StyleSheet,KeyboardAvoidingView,StatusBar} from 'react-native';
+import {SafeAreaView, Keyboard,TouchableWithoutFeedback,Platform, ImageBackground, Text,View, StyleSheet,KeyboardAvoidingView,StatusBar} from 'react-native';
 import { RegistrationForm,commonStyles,FormSubmitButton,FormToggle } from '../../components/index';
+import { useState } from 'react';
 
-const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars; 
+const { colorText, colorWhite} = commonStyles.vars; 
 
 function LoginScreen() {
-
+ const [isClickedSubmit, setIsClickedSubmit] = useState(false); 
+   const handleSubmit = (isPressSubmit) => {
+    setIsClickedSubmit(isPressSubmit);
+  }
   return (
-   <View style={{flex:1,justifyContent: "flex-end"}}>
+    <SafeAreaView style={{ flex: 1 }}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+  
       <ImageBackground source={bgImage} resizeMode="cover" style={styles.image}>
+       
         <View style={styles.container}>
         <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+           behavior={Platform.OS == "ios" ? "padding" : "height"}
            style={{width:'100%'}}
           >
-           
-            <Text style = {styles.title}>Увійти</Text>
-              <RegistrationForm isRegistrationScreen={false} />
-             
-        </KeyboardAvoidingView> 
-          <FormSubmitButton text={'Увійти'} customStyle={{marginBottom:15}}/>
+           <Text style = {styles.title}>Увійти</Text>
+              <RegistrationForm
+                isRegistrationScreen={false}
+                isClickedSubmit={isClickedSubmit}
+                handleSubmit={handleSubmit}
+              />
+              <FormSubmitButton
+                text={'Увійти'}
+                customStyle={{ marginBottom: 15 }}
+                handleSubmit={()=>setIsClickedSubmit(true)}
+              />
             <FormToggle text={'Немає акаунту? Зареєструватися'} />
+ </KeyboardAvoidingView> 
+           
+        
         </View>  
       </ImageBackground>
-   </View>
+   
+      </TouchableWithoutFeedback>
+      </SafeAreaView>
   );
 }
   const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        marginTop: 323,
-      paddingHorizontal: 16,
+        paddingHorizontal: 16,
         paddingBottom: 144,
         borderTopLeftRadius: 25,
         borderTopRightRadius:25,
@@ -49,7 +64,7 @@ function LoginScreen() {
          },
       image: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-end',
       },    
   });
 export default LoginScreen
