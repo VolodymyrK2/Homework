@@ -8,7 +8,7 @@ export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSu
     const [loginForm, setLoginForm] = useState(''); 
     const [emailForm, setEmailForm] = useState(''); 
     const [passwordForm, setPasswordForm] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(true);
     
     const resetForm = () => {
     setLoginForm('');
@@ -72,7 +72,7 @@ export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSu
                     value={passwordForm}
                     onChangeText={setPasswordForm} 
                     placeholderTextColor={styles.placeholder.color} 
-                    secureTextEntry={!showPassword}
+                    secureTextEntry={showPassword}
                     textContentType='password'
                     placeholder='Пароль'
                     style={[styles.input, isActiveInput===3 && styles.focusedInput]}
