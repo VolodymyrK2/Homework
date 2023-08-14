@@ -81,7 +81,7 @@ export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSu
                 >
                 </TextInput>
                 <Pressable onPress={handlePressShowButton}>
-                    <Text style={styles.passwordText}>Показати</Text>
+                    <Text style={styles.passwordText}>{showPassword ? 'Показати' : 'Приховати'}</Text>
                 </Pressable> 
             </View>
         </View>
