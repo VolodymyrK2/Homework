@@ -1,11 +1,16 @@
 import { Text, StyleSheet, Pressable } from 'react-native';
 import { commonStyles } from './commonStyles';
+import { useNavigation } from '@react-navigation/native';
 
 const { colorAccent, colorWhite} = commonStyles.vars;
-export function FormToggle({text}) {
+export function FormToggle({ text, routeName }) {
+  const navigation = useNavigation();
   return (
-     <Pressable>
-          <Text style={styles.textEnter}>{text}</Text>
+    <Pressable
+      onPress={() => navigation.navigate(routeName)}
+    >
+      <Text style={styles.textEnter}>{text}</Text>
+       
      </Pressable>
   )
 }

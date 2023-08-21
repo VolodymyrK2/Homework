@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable,Alert } from 'react-native';
 import { commonStyles } from './commonStyles';
+import { useNavigation } from '@react-navigation/native';
+
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars;
 export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSubmit}) {
@@ -9,7 +11,8 @@ export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSu
     const [emailForm, setEmailForm] = useState(''); 
     const [passwordForm, setPasswordForm] = useState('');
     const [showPassword, setShowPassword] = useState(true);
-    
+    const navigation = useNavigation();
+
     const resetForm = () => {
     setLoginForm('');
     setEmailForm('');
@@ -28,6 +31,7 @@ export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSu
         }
         
         console.log(`\n Login: ${loginForm}\n Email: ${emailForm}\n Password: ${passwordForm}`);
+        navigation.navigate('Home');
         handleSubmit(false);
         resetForm();
         

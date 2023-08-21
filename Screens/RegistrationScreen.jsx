@@ -1,5 +1,5 @@
 import { AntDesign } from '@expo/vector-icons'; 
-import bgImage from '../../assets/bg.png';
+import bgImage from '../assets/bg.png';
 import {
   Platform,
   TouchableWithoutFeedback,
@@ -11,14 +11,17 @@ import {
   KeyboardAvoidingView,
 }
   from 'react-native';
-import { RegistrationForm,commonStyles,FormSubmitButton,FormToggle } from '../../components/index';
+ 
+import { RegistrationForm,commonStyles,FormSubmitButton,FormToggle } from '../components/index';
 import { useState } from 'react';
+import LoginScreen from './LoginScreen';
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars; 
 
 function RegistrationScreen() {
-  const [isClickedSubmit, setIsClickedSubmit] = useState(false); 
-   const handleSubmit = (isPressSubmit) => {
+  const [isClickedSubmit, setIsClickedSubmit] = useState(false);
+ 
+  const handleSubmit = (isPressSubmit) => {
     setIsClickedSubmit(isPressSubmit);
   }
   return (
@@ -43,10 +46,15 @@ function RegistrationScreen() {
            <View style={styles.containerButtons}>
             <FormSubmitButton
               text={'Зареєструватися'}
-              customStyle={{ marginBottom: 15 }}
-              handleSubmit={()=>setIsClickedSubmit(true)}
-            />
-              <FormToggle text={'Вже є акаунт? Увійти'} />
+              customStyle={{ marginBottom: 15, color:colorWhite }}
+                handleSubmit={() => {
+                  setIsClickedSubmit(true);
+                 }}
+               />
+              <FormToggle
+                text={'Вже є акаунт? Увійти'}
+                routeName={'LoginScreen'}
+              />
              </View>   
             </KeyboardAvoidingView>      
           </View>  

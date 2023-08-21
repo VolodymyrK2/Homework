@@ -1,15 +1,18 @@
-import bgImage from '../../assets/bg.png';
+import bgImage from '../assets/bg.png';
 import {SafeAreaView, Keyboard,TouchableWithoutFeedback,Platform, ImageBackground, Text,View, StyleSheet,KeyboardAvoidingView,StatusBar} from 'react-native';
-import { RegistrationForm,commonStyles,FormSubmitButton,FormToggle } from '../../components/index';
+import { RegistrationForm,commonStyles,FormSubmitButton,FormToggle } from '../components';
 import { useState } from 'react';
+import RegistrationScreen from './RegistrationScreen';
 
 const { colorText, colorWhite} = commonStyles.vars; 
 
 function LoginScreen() {
- const [isClickedSubmit, setIsClickedSubmit] = useState(false); 
+  const [isClickedSubmit, setIsClickedSubmit] = useState(false); 
+ 
    const handleSubmit = (isPressSubmit) => {
     setIsClickedSubmit(isPressSubmit);
   }
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -29,17 +32,19 @@ function LoginScreen() {
               />
               <FormSubmitButton
                 text={'Увійти'}
-                customStyle={{ marginBottom: 15 }}
-                handleSubmit={()=>setIsClickedSubmit(true)}
+                customStyle={{ marginBottom: 15, color:colorWhite }}
+                handleSubmit={() => {
+                  setIsClickedSubmit(true);
+                }}
               />
-            <FormToggle text={'Немає акаунту? Зареєструватися'} />
+              <FormToggle
+                text={'Немає акаунту? Зареєструватися'}
+                routeName={'RegistrationScreen'}
+              />
  </KeyboardAvoidingView> 
-           
-        
-        </View>  
+    </View>  
       </ImageBackground>
-   
-      </TouchableWithoutFeedback>
+       </TouchableWithoutFeedback>
       </SafeAreaView>
   );
 }
@@ -67,4 +72,4 @@ function LoginScreen() {
       justifyContent: 'flex-end',
       },    
   });
-export default LoginScreen
+export default LoginScreen;
