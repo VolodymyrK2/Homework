@@ -1,8 +1,8 @@
 import { Text, StyleSheet, Pressable } from 'react-native';
-import { commonStyles } from './commonStyles';
+import commonStyles from './commonStyles';
 
 const { colorAccent, colorWhite} = commonStyles.vars;
-export function FormSubmitButton({ text, customStyle, handleSubmit}) {
+function FormSubmitButton({ text, customStyle, handleSubmit}) {
   
   return (
     <Pressable
@@ -28,3 +28,4 @@ const styles = StyleSheet.create({
      textAlign:'center',
     },
 })
+export default FormSubmitButton;

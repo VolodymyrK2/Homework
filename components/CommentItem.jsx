@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { commonStyles } from '../components';
+import commonStyles from './commonStyles';
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars;
 
-export const CommentItem = ({ comment }) => {
+ const CommentItem = ({ comment }) => {
     return (
         <View style={[styles.container, comment.isOwnComment
             ? { flexDirection: 'row-reverse' } : { flexDirection: 'row' }]}>
@@ -54,3 +54,4 @@ const styles = StyleSheet.create({
     color: '#BDBDBD',
     },
 });
+export default CommentItem;

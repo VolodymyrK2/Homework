@@ -3,7 +3,8 @@ import { View, TextInput, Pressable, FlatList, StyleSheet, Image } from 'react-n
 import { AntDesign } from '@expo/vector-icons';
 import moment from 'moment';
 import 'moment/locale/uk';
-import { commonStyles, CommentItem } from '../components';
+import commonStyles from '../components/commonStyles';
+import CommentItem from '../components/CommentItem';
 
 const commentsData = [
   { id: '1', text: 'Це виглядає дуже круто!', isOwnComment: false, data: '09 червня, 2020 | 08:40' },

@@ -1,11 +1,14 @@
 // Home.js
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { StyleSheet, Pressable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather, Ionicons, AntDesign } from "@expo/vector-icons";
-import { PostsScreen, CreatePostsScreen, ProfileScreen } from "../Screens";
+import PostsScreen from "./PostsScreen";
+import ProfileScreen from './ProfileScreen';
+import CreatePostsScreen from './CreatePostsScreen';
+
 import { useNavigation } from '@react-navigation/native';
 
 const Tabs = createBottomTabNavigator();
@@ -84,7 +87,7 @@ const Home = () => {
         tabBarStyle: {display:'none'},
         title: 'Створити публікацію',
          headerLeft: () => (
-            <Pressable onPress={() => navigation.navigate('PostsScreen')}>
+            <Pressable onPress={() => navigation.navigate('PostsScreen',{newPost: null})}>
               <Ionicons name="arrow-back" size={24} style={styles.iconBackHeader} />
             </Pressable>
           ),

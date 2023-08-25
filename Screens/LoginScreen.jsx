@@ -1,18 +1,13 @@
 import bgImage from '../assets/bg.png';
-import {SafeAreaView, Keyboard,TouchableWithoutFeedback,Platform, ImageBackground, Text,View, StyleSheet,KeyboardAvoidingView,StatusBar} from 'react-native';
-import { RegistrationForm,commonStyles,FormSubmitButton,FormToggle } from '../components';
-import { useState } from 'react';
-import RegistrationScreen from './RegistrationScreen';
+import { SafeAreaView, Keyboard, TouchableWithoutFeedback, Platform, ImageBackground, Text, View, StyleSheet, KeyboardAvoidingView, StatusBar } from 'react-native';
+import RegistrationForm from '../components/RegistrationForm';
+import commonStyles from '../components/commonStyles';
+import FormToggle from '../components/FormToggle';
 
 const { colorText, colorWhite} = commonStyles.vars; 
 
 function LoginScreen() {
-  const [isClickedSubmit, setIsClickedSubmit] = useState(false); 
- 
-   const handleSubmit = (isPressSubmit) => {
-    setIsClickedSubmit(isPressSubmit);
-  }
-  
+   
   return (
     <SafeAreaView style={{ flex: 1 }}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -27,16 +22,7 @@ function LoginScreen() {
            <Text style = {styles.title}>Увійти</Text>
               <RegistrationForm
                 isRegistrationScreen={false}
-                isClickedSubmit={isClickedSubmit}
-                handleSubmit={handleSubmit}
-              />
-              <FormSubmitButton
-                text={'Увійти'}
-                customStyle={{ marginBottom: 15, color:colorWhite }}
-                handleSubmit={() => {
-                  setIsClickedSubmit(true);
-                }}
-              />
+               />
               <FormToggle
                 text={'Немає акаунту? Зареєструватися'}
                 routeName={'RegistrationScreen'}

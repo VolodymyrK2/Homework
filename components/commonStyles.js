@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-export const commonStyles = StyleSheet.create({
+ const commonStyles = StyleSheet.create({
     fonts: { fontFamily: 'Roboto', fontSize: 16, lineHeight: 18.75 },
     vars: {
         colorAccent: '#FF6C00',
@@ -8,3 +8,4 @@ export const commonStyles = StyleSheet.create({
         colorBgInput: '#F6F6F6',
     }
 })
+export default commonStyles;

@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable,Alert } from 'react-native';
-import { commonStyles } from './commonStyles';
+import commonStyles from './commonStyles';
+import FormSubmitButton from './FormSubmitButton';
 import { useNavigation } from '@react-navigation/native';
 
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars;
-export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSubmit}) {
+function RegistrationForm({isRegistrationScreen, isClickedSubmit}) {
     const [isActiveInput, setActiveInput] = useState(null);
     const [loginForm, setLoginForm] = useState(''); 
     const [emailForm, setEmailForm] = useState(''); 
@@ -19,23 +20,21 @@ export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSu
     setPasswordForm('');
     
   }  
-    useEffect(() => {
-        const isEmptyForm = isRegistrationScreen ? (loginForm === '' || emailForm === '' || passwordForm === ''): (emailForm === '' || passwordForm === '');
-        if (!isClickedSubmit) {
-            return
-        }
-        if (isEmptyForm && isClickedSubmit) {
+    const handleSubmit=() => {
+        const isEmptyForm = isRegistrationScreen
+            ? (loginForm === '' || emailForm === '' || passwordForm === '')
+            : (emailForm === '' || passwordForm === '');
+        if (isEmptyForm) {
             Alert.alert('Please fill in all fields');
-            handleSubmit(false);
             return;
         }
-        
         console.log(`\n Login: ${loginForm}\n Email: ${emailForm}\n Password: ${passwordForm}`);
-        navigation.navigate('Home');
-        handleSubmit(false);
+        navigation.navigate('Home', {
+            screen: 'PostsScreen',
+                params: {newPost:null},
+        });
         resetForm();
-        
-    }, [isClickedSubmit,loginForm,emailForm,passwordForm]);
+       };
     
     const handlePressShowButton = () => {
         setShowPassword(!showPassword);
@@ -88,18 +87,21 @@ export function RegistrationForm({isRegistrationScreen, isClickedSubmit,handleSu
                     <Text style={styles.passwordText}>{showPassword ? 'Показати' : 'Приховати'}</Text>
                 </Pressable> 
             </View>
+             <FormSubmitButton
+              text={isRegistrationScreen?'Зареєструватися':'Увійти'}
+              customStyle={styles.btnSubmit}
+                handleSubmit={handleSubmit}
+               />
         </View>
     );
 }
 const styles = StyleSheet.create({
     container: {
-        // flex:1,
         width: '100%',
     },
     input: {
         ...commonStyles.fonts,
         color: colorText,
-        // width: '100%',
         height: 50,
         borderColor: '#E8E8E8',
         borderRadius: 8,
@@ -113,7 +115,6 @@ const styles = StyleSheet.create({
     },
     passwordInputContainer: {
         position: 'relative',
-        // width: '100%',
         marginBottom: 25,
     },
     passwordText: {
@@ -128,5 +129,10 @@ const styles = StyleSheet.create({
         borderColor: colorAccent,
         backgroundColor: colorWhite,
         color: colorText,
-  },
+    },
+    btnSubmit: {
+        marginBottom: 15,
+        color: colorWhite
+    }
 });            
+export default RegistrationForm;

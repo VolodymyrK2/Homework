@@ -11,20 +11,15 @@ import {
   KeyboardAvoidingView,
 }
   from 'react-native';
- 
-import { RegistrationForm,commonStyles,FormSubmitButton,FormToggle } from '../components/index';
-import { useState } from 'react';
-import LoginScreen from './LoginScreen';
+import RegistrationForm from '../components/RegistrationForm';
+import commonStyles from '../components/commonStyles';
+ import FormToggle from '../components/FormToggle';
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars; 
 
 function RegistrationScreen() {
-  const [isClickedSubmit, setIsClickedSubmit] = useState(false);
- 
-  const handleSubmit = (isPressSubmit) => {
-    setIsClickedSubmit(isPressSubmit);
-  }
-  return (
+
+   return (
    <TouchableWithoutFeedback  onPress={Keyboard.dismiss}>
        <ImageBackground source={bgImage} resizeMode="cover" style={styles.image}>
         <View style={styles.container}>
@@ -40,18 +35,9 @@ function RegistrationScreen() {
               <Text style = {styles.title}>Реєстрація</Text>
             <RegistrationForm
               isRegistrationScreen={'true'}
-              isClickedSubmit={isClickedSubmit}
-              handleSubmit={handleSubmit}
-            />
+              />
            <View style={styles.containerButtons}>
-            <FormSubmitButton
-              text={'Зареєструватися'}
-              customStyle={{ marginBottom: 15, color:colorWhite }}
-                handleSubmit={() => {
-                  setIsClickedSubmit(true);
-                 }}
-               />
-              <FormToggle
+            <FormToggle
                 text={'Вже є акаунт? Увійти'}
                 routeName={'LoginScreen'}
               />

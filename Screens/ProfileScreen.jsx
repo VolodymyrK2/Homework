@@ -2,15 +2,25 @@ import React from 'react'
 import avatarPhoto from '../assets/avatar.jpg'
 import bgImage from '../assets/bg.png';
 import { Feather, Entypo } from '@expo/vector-icons'; 
-import {FlatList, Pressable, Text,View, StyleSheet,Image, ImageBackground} from 'react-native';
-import { Post, commonStyles } from '../components';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { FlatList, Pressable, Text, View, StyleSheet, Image, ImageBackground } from 'react-native';
+import Post from '../components/Post';
+import commonStyles from '../components/commonStyles';
+import { useNavigation} from '@react-navigation/native';
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars; 
 const postsData = [
-  { id: '1', picName: 'Ліс', locality: 'Ukraine', commentCount: 0, likeCount:10 },
-  { id: '2', picName: 'Море', locality: 'Ukraine', commentCount: 10, likeCount:0 },
-  { id: '3', picName: 'Вовки', locality: 'Ukraine',commentCount: 5, likeCount:56 },
+  {
+    id: '1', uri: null, picName: 'Ліс', locality: 'Ukraine',
+    commentCount: 0, likeCount: 10, latitude: 0, longitude:0
+  },
+  {
+    id: '2', uri: null, picName: 'Море', locality: 'Ukraine',
+    commentCount: 10, likeCount: 5,latitude: 0, longitude:0
+  },
+  {
+    id: '3', uri: null, picName: 'Вовки', locality: 'Ukraine',
+    commentCount: 5, likeCount: 56, latitude: 0, longitude:0
+  },
 ];
 function ProfileScreen() {
   const navigation = useNavigation();

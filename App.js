@@ -1,10 +1,19 @@
 import 'react-native-gesture-handler';
-import { Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from 'expo-font';
-import { RegistrationScreen, LoginScreen, PostsScreen, Home,CommentsScreen, CreatePostsScreen } from './Screens';
+import RegistrationScreen from './Screens/RegistrationScreen';
+import LoginScreen from './Screens/LoginScreen';
+import Home from './Screens/Home';
+import CommentsScreen from './Screens/CommentsScreen';
+import CreatePostsScreen from './Screens/CreatePostsScreen';
+import MapScreen from './Screens/MapScreen';
+import Snapshot from './components/Snapshot';
+// import {
+//   RegistrationScreen,
+//   LoginScreen, Home, CommentsScreen, CreatePostsScreen
+// } from './Screens';
 
 
 const MainStack = createStackNavigator();
@@ -24,7 +33,15 @@ export default function App() {
         <MainStack.Screen name='RegistrationScreen' component={RegistrationScreen}/>
         <MainStack.Screen name='LoginScreen' component={LoginScreen}  />
         <MainStack.Screen name='Home' component={Home} />
+        <MainStack.Screen name='MapScreen' component={MapScreen}
+          options={{
+            headerShown: true,
+            title: "Мапа",
+            headerTitleAlign: 'center',
+          }} />
+        <MainStack.Screen name='Snapshot' component={Snapshot}/>
         <MainStack.Screen name='CreatePostsScreen' component={CreatePostsScreen}
+        
         options={{headerShown: true}}
 
         />

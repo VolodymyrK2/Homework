@@ -1,19 +1,19 @@
 import { Text, StyleSheet, View, Pressable, Image } from 'react-native';
-// import userPhoto from '../assets/userPhoto.jpg'
-import { CommentsScreen } from '../Screens';
-import { commonStyles } from './commonStyles';
-import { MaterialIcons,Feather } from '@expo/vector-icons';
+import commonStyles from './commonStyles';
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 const { colorAccent, colorWhite,colorBgInput} = commonStyles.vars;
-export function Post({ post, isProfileScreen = true }) {
+function Post({ post, isProfileScreen = true }) {
   const navigation = useNavigation(); 
+  const {id, uri, picName, locality,  commentCount, likeCount, latitude, longitude} =post
     return (
-        <View style={styles.container}>
-         <Image source={require('../assets/photo1.jpg')}
-                style={styles.image}
-            />
-            <Text style={styles.picName}>{post.picName}</Text>
+      <View style={styles.container}>
+            < Image 
+        source={uri?{uri: uri}:require('../assets/photo1.jpg')}
+          style={styles.image}
+        />
+            <Text style={styles.picName}>{picName}</Text>
             <View style={styles.locationContainer}>
           <View style={styles.locationBox}>
             <Pressable
@@ -22,17 +22,21 @@ export function Post({ post, isProfileScreen = true }) {
               <Feather name="message-circle" size={24} style={[styles.messageCircle,post.commentCount===0&&{color:'#BDBDBD'}]} />
             </Pressable>
                     
-            <Text style={styles.numberComments}>{post.commentCount}</Text>
+            <Text style={styles.numberComments}>{commentCount}</Text>
             {isProfileScreen && <>
-              <Feather name="thumbs-up" size={24} style={[styles.thumbsUp,post.likeCount===0&&{color:'#BDBDBD'}]} />
+              <Feather name="thumbs-up" size={24} style={[styles.thumbsUp,likeCount===0&&{color:'#BDBDBD'}]} />
               <Text style={styles.numberComments}>
-                {post.likeCount}</Text>
+                {likeCount}</Text>
           </>}
             </View>
-                <View style={styles.locationBox}>
-                    <Feather name="map-pin" size={24} style={styles.iconMappin} />
+          <View style={styles.locationBox}>
+            <Pressable
+              onPress={() => navigation.navigate('MapScreen',{latitude: latitude, longitude: longitude})}
+            >
+              <Feather name="map-pin" size={24} style={styles.iconMappin} />
+              </Pressable>
             <Text style={styles.locality}>
-              {post.locality}
+              {locality}
             </Text>
                 </View>
                    
@@ -57,7 +61,8 @@ const styles = StyleSheet.create({
       width:'100%',
     },
     image: {
-        width:'100%',
+      width: '100%',
+      height: 240,
       borderRadius: 8,
     },
     locationContainer: {
@@ -94,3 +99,4 @@ const styles = StyleSheet.create({
       ...commonStyles.fonts,
     }
 })
+export default Post;

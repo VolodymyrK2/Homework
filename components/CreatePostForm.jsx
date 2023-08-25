@@ -1,32 +1,40 @@
 import React, {useState} from "react";
-import { View, TextInput, StyleSheet, Pressable, Alert } from "react-native";
+import { View, TextInput, StyleSheet, Alert } from "react-native";
 import { Feather } from '@expo/vector-icons';
-import { FormSubmitButton } from "../components";
-import { commonStyles } from "./commonStyles";
+import FormSubmitButton from "./FormSubmitButton";
+import commonStyles from "./commonStyles";
 import { useNavigation } from '@react-navigation/native';
+import getCurrentLocation from "../services/getCurrentLocation";
+import uuid from 'react-native-uuid';
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars;
-export const CreatePostForm = () => {
+const CreatePostForm = (photoUri) => {
   const [namePhoto, setNamePhoto] = useState(null);
   const [locality, setLocality] = useState(null);
   const navigation = useNavigation();
-  // const [isEmptyForm, setIsEmptyForm] = useState(true);
-  //  if (!namePhoto || !locality) {
-  //   setIsEmptyForm(true)
-  // } else {
-  //     setIsEmptyForm(false);
-  //   }
+  
   const isEmptyForm = !namePhoto || !locality;
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
 
     if (isEmptyForm) {
       Alert.alert('Please fill in all fields');
       return;
     }
     console.log(`\n namePhoto: ${namePhoto}\n locality: ${locality}`);
+       const coords = await getCurrentLocation();
+    const newPost = {
+      id: uuid.v4(),
+      uri: photoUri.photoUri,
+      picName: namePhoto,
+      locality: locality,
+      commentCount: 0,
+      likeCount: 0,
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+    }
     setLocality(null);
     setNamePhoto(null);
-    navigation.navigate('PostsScreen');
+    navigation.navigate('PostsScreen',{newPost});
 }
   return (
     <View style={styles.container}>
@@ -96,4 +104,4 @@ const styles = StyleSheet.create({
         backgroundColor:colorAccent,
     },
 });
-
+export default CreatePostForm;
