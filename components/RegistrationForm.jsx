@@ -3,7 +3,14 @@ import { View, Text, TextInput, StyleSheet, Pressable,Alert } from 'react-native
 import commonStyles from './commonStyles';
 import FormSubmitButton from './FormSubmitButton';
 import { useNavigation } from '@react-navigation/native';
-
+import { registerDB } from '../redux/auth/operations';
+import { auth } from '../config';
+import { 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    updateProfile
+} from 'firebase/auth';
 
 const { colorAccent, colorText, colorWhite, colorBgInput } = commonStyles.vars;
 function RegistrationForm({isRegistrationScreen, isClickedSubmit}) {
@@ -20,7 +27,7 @@ function RegistrationForm({isRegistrationScreen, isClickedSubmit}) {
     setPasswordForm('');
     
   }  
-    const handleSubmit=() => {
+    const handleSubmit= async () => {
         const isEmptyForm = isRegistrationScreen
             ? (loginForm === '' || emailForm === '' || passwordForm === '')
             : (emailForm === '' || passwordForm === '');
@@ -28,6 +35,15 @@ function RegistrationForm({isRegistrationScreen, isClickedSubmit}) {
             Alert.alert('Please fill in all fields');
             return;
         }
+        try {
+            // console.log('result', result);
+            await createUserWithEmailAndPassword(auth, emailForm, passwordForm);
+            // const result = await registerDB({ emailForm, passwordForm });
+            
+} catch (error) {
+  console.error('Помилка реєстрації:', error);
+}
+
         console.log(`\n Login: ${loginForm}\n Email: ${emailForm}\n Password: ${passwordForm}`);
         navigation.navigate('Home', {
             screen: 'PostsScreen',

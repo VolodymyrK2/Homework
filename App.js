@@ -1,4 +1,7 @@
 import 'react-native-gesture-handler';
+import { Provider } from "react-redux";
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './redux/store';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -10,11 +13,6 @@ import CommentsScreen from './Screens/CommentsScreen';
 import CreatePostsScreen from './Screens/CreatePostsScreen';
 import MapScreen from './Screens/MapScreen';
 import Snapshot from './components/Snapshot';
-// import {
-//   RegistrationScreen,
-//   LoginScreen, Home, CommentsScreen, CreatePostsScreen
-// } from './Screens';
-
 
 const MainStack = createStackNavigator();
 export default function App() {
@@ -27,6 +25,8 @@ export default function App() {
    }
     
   return (
+      <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
     <NavigationContainer>
       <StatusBar style='auto' />
       <MainStack.Navigator initialRouteName='RegistrationScreen' screenOptions={{ headerShown: false }} >
@@ -67,8 +67,9 @@ export default function App() {
          
           }}/>
       </MainStack.Navigator>
-      </NavigationContainer>
+        </NavigationContainer>
+      </PersistGate>
+      </Provider>
   );
 }
   
-// 1221
